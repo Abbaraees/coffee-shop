@@ -33,14 +33,12 @@ db_drop_and_create_all()
 def get_drinks():
     try:
         drinks = Drink.query.all()
-        # print("*" * 50, drinks)
         formated_drinks = [d.short() for d in drinks]
         return jsonify({
             'success': True,
             'drinks': formated_drinks
         })
     except:
-        print(sys.exc_info())
         abort(422)
 
 '''
@@ -78,7 +76,6 @@ def get_drinks_detail(payload):
 def add_drink(payload):
     data = request.get_json()
     try:
-        print(data['recipe'])
         drink = Drink(title=data['title'], recipe=json.dumps(data['recipe']))
         drink.insert()
     except:
